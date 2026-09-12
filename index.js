@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 8080;
 
 const SERVER_HOST = process.env.SERVER_HOST || "dragonet.aternos.host";
 const SERVER_PORT = parseInt(process.env.SERVER_PORT) || 56328;
-const BOT_USERNAME = process.env.BOT_USERNAME || "AFK_Bot";
+const BOT_USERNAME = process.env.BOT_USERNAME || "RE_LIFE";
 
 app.get("/", (req, res) => {
   res.send(`
