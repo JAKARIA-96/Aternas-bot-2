@@ -4,8 +4,8 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-const SERVER_HOST = process.env.SERVER_HOST || "dragonet.aternos.host";
-const SERVER_PORT = parseInt(process.env.SERVER_PORT) || 56328;
+const SERVER_HOST = process.env.SERVER_HOST || "192.168.0.100";
+const SERVER_PORT = parseInt(process.env.SERVER_PORT) || 19132;
 const BOT_USERNAME = process.env.BOT_USERNAME || "RE_LIFE";
 
 app.get("/", (req, res) => {
