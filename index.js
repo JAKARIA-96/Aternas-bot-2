@@ -28,13 +28,18 @@ function createBot() {
   console.log(`[Bot] Connecting to ${SERVER_HOST}:${SERVER_PORT}...`);
 
   const client = bedrock.createClient({
-    host: SERVER_HOST,
-    port: SERVER_PORT,
-    username: BOT_USERNAME,
-    offline: true,
-    version: "1.26.45",
-    skipPing: true,
-  });
+  host: SERVER_HOST,
+  port: SERVER_PORT,
+  username: BOT_USERNAME,
+  offline: true,
+  version: "1.26.45",
+  skipping: true,
+  connectTimeout: 30000,
+  // Add these two lines to route traffic through the Tailscale proxy:
+  proxyHost: '127.0.0.1',
+  proxyPort: 1055
+});
+
 
   client.on("spawn", () => {
     console.log("[Bot] Successfully connected and spawned in the world!");
