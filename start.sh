@@ -1,21 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 
-# Setup state directories
-mkdir -p /var/run/tailscale /var/lib/tailscale /dev/net
-if [ ! -c /dev/net/tun ]; then
-    mknod /dev/net/tun c 10 200 2>/dev/null || true
-fi
+# Start tailscaled in userspace mode with local SOCKS5 proxy
+tailscaled --tun=userspace-networking --socks5-server=localhost:1055 --statedir=/tmp/tailscale &
 
-# Start tailscaled in userspace mode
-tailscaled --tun=userspace-networking --statedir=/var/lib/tailscale &
-
-# Wait for socket to initialize
+# Wait for tailscaled socket to boot
 sleep 3
 
-# Authenticate with Tailscale
+# Log into Tailscale
 tailscale up --authkey="${TAILSCALE_AUTHKEY}" --hostname=railway-bot
 
-echo "Tailscale started successfully! Starting Minecraft bot..."
+echo "Tailscale proxy ready! Starting bot..."
 
-# Start the Node.js application
+# Start Node application
 exec node index.js
