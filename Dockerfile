@@ -1,7 +1,15 @@
 FROM node:20-bookworm
 
-# Install Tailscale and dependencies from Debian Bookworm repositories
-RUN apt-get update && apt-get install -y curl iptables tailscale && rm -rf /var/lib/apt/lists/*
+# Install prerequisite tools
+RUN apt-get update && apt-get install -y curl iptables gnupg && rm -rf /var/lib/apt/lists/*
+
+# Add Tailscale's official repository key and package list
+RUN mkdir -p /usr/share/keyrings && \
+    curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null && \
+    curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list
+
+# Install Tailscale
+RUN apt-get update && apt-get install -y tailscale && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
