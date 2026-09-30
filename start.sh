@@ -1,15 +1,11 @@
 #!/bin/bash
 
-# Start tailscaled in userspace mode with local SOCKS5 proxy
-tailscaled --tun=userspace-networking --socks5-server=localhost:1055 --statedir=/tmp/tailscale &
-
-# Wait for tailscaled socket to boot
+# Start tailscaled in userspace mode
+tailscaled --tun=userspace-networking --statedir=/tmp/tailscale &
 sleep 3
 
-# Log into Tailscale
+# Authenticate with Tailscale
 tailscale up --authkey="${TAILSCALE_AUTHKEY}" --hostname=railway-bot
 
-echo "Tailscale proxy ready! Starting bot..."
-
-# Start Node application
+echo "Tailscale ready! Starting bot..."
 exec node index.js
