@@ -35,9 +35,6 @@ function createBot() {
   version: "1.26.45",
   skipping: true,
   connectTimeout: 30000,
-  // Add these two lines to route traffic through the Tailscale proxy:
-  proxyHost: '127.0.0.1',
-  proxyPort: 1055
 });
 
 
